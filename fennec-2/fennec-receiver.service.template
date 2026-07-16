@@ -1,0 +1,19 @@
+# systemd unit for the Fennec XBee receiver
+# Reference implementation — adapt paths and user for your setup
+
+[Unit]
+Description=Fennec XBee telemetry receiver
+After=network.target
+
+[Service]
+Type=simple
+User=fennec
+WorkingDirectory=/opt/fennec
+ExecStart=/usr/bin/python3 /opt/fennec/xbee_receiver.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=append:/var/log/fennec-receiver.log
+StandardError=append:/var/log/fennec-receiver.log
+
+[Install]
+WantedBy=multi-user.target
